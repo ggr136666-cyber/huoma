@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>轮流看图</title>
+    <style>
+        body { margin:0; background:#000; display:flex; align-items:center; justify-content:center; height:100vh; }
+        img { max-width:100%; max-height:100vh; }
+    </style>
+</head>
+<body>
+    <img id="photo" src="" alt="轮流图片">
+    
+    <script>
+        const images = [
+            "https://zza.de5.net/i/2026/05/12/6a02138ce2a8f.png",
+            "https://zza.de5.net/i/2026/05/12/6a0213082a230.jpeg",
+            "https://zza.de5.net/i/2026/05/12/6a02130729e80.jpeg",
+            // 继续添加更多图片链接
+        ];
+        
+        let current = 0;
+        
+        // 优先用 localStorage 记录进度（同一设备有效）
+        // 如果想全局轮流（所有人共用一个序列），可以改用服务器计数器
+        function showNext() {
+            current = (current + 1) % images.length;
+            document.getElementById("photo").src = images[current];
+            // 可选：保存进度
+            // localStorage.setItem("lastIndex", current);
+        }
+        
+        // 页面加载时显示下一张
+        window.onload = showNext;
+        
+        // 点击图片也可切换
+        document.getElementById("photo").addEventListener("click", showNext);
+    </script>
+</body>
+</html>
